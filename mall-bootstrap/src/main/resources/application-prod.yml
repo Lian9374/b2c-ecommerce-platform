@@ -1,0 +1,31 @@
+# ====================================
+# 生产环境配置（通过环境变量注入敏感信息）
+# ====================================
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql:3306/enterprise_mall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  rabbitmq:
+    host: ${RABBITMQ_HOST:rabbitmq}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    virtual-host: /
+
+  flyway:
+    locations: classpath:db/migration
+
+logging:
+  level:
+    root: WARN
+    com.enterprisemall: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{50} - %msg%n"
